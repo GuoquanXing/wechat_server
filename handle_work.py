@@ -18,12 +18,16 @@ class Handle(object):
             timestamp = data.timestamp
             nonce = data.nonce
             echostr = data.echostr
+
             token = "hello2018"  # 请按照公众平台官网\基本配置中信息填写
+            encodingAESToken = 'Fc72tGGPgLdJHThLJsTNtFa5KgpVL8WFIuR7K2Xd61r'
+            corporateID = 'ww4cf07f7d23045699'
             
-            wxcpt=WXBizMsgCrypt(token,'Fc72tGGPgLdJHThLJsTNtFa5KgpVL8WFIuR7K2Xd61r','ww4cf07f7d23045699')
+            wxcpt=WXBizMsgCrypt(token, encodingAESToken, corporateID)
             print [signature, timestamp, nonce, echostr]
             ret,sEchoStr=wxcpt.VerifyURL(signature, timestamp,nonce,echostr)
             print sEchoStr
+            print 'return code:' ret
             return sEchoStr
 
         except Exception, e:
@@ -32,13 +36,6 @@ class Handle(object):
             pass
         finally:
             pass
-
-    def AES_Decrypt(self, decoded_str):
-        key = ''.join(chr(random.randint(0, 0xFF)) for i in range(16))
-        iv = ''.join([chr(random.randint(0, 0xFF)) for i in range(16)])
-
-
-
 
     def POST(self):
         try:
