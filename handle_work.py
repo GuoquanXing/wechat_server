@@ -21,11 +21,9 @@ class Handle(object):
             token = "hello2018"  # 请按照公众平台官网\基本配置中信息填写
             
             wxcpt=WXBizMsgCrypt(token,'Fc72tGGPgLdJHThLJsTNtFa5KgpVL8WFIuR7K2Xd61r','ww4cf07f7d23045699')
-            ret = wxcpt.VerifyAESKey()
-            print ret
-
+            print [signature, timestamp, nonce, echostr]
             ret,sEchoStr=wxcpt.VerifyURL(signature, timestamp,nonce,echostr)
-
+            print sEchoStr
             return sEchoStr
 
         except Exception, e:
