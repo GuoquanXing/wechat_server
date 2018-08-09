@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
+#  python version: 2.7.x, python 3.x is not supported
 #  filename: handle_work.py
 import hashlib
 import reply
 import receive
 import web
 from WXBizMsgCrypt import WXBizMsgCrypt
+import messageBrokerConf
 
 class Handle(object):
 
@@ -18,16 +20,12 @@ class Handle(object):
             timestamp = data.timestamp
             nonce = data.nonce
             echostr = data.echostr
+            print 'URL paramter received:', [signature, timestamp, nonce, echostr]
 
-            token = "hello2018"  # 请按照公众平台官网\基本配置中信息填写
-            encodingAESToken = 'Fc72tGGPgLdJHThLJsTNtFa5KgpVL8WFIuR7K2Xd61r'
-            corporateID = 'ww4cf07f7d23045699'
-            
-            wxcpt=WXBizMsgCrypt(token, encodingAESToken, corporateID)
-            print [signature, timestamp, nonce, echostr]
+            wxcpt=WXBizMsgCrypt(messageBrokerConf.Token, messageBrokerConf.EncodingAESToken, messageBrokerConf.CorporateID)
             ret,sEchoStr=wxcpt.VerifyURL(signature, timestamp,nonce,echostr)
-            print sEchoStr
-            print 'return code:' ret
+            print 'Decoded String:', sEchoStr
+            print 'return code:', ret
             return sEchoStr
 
         except Exception, e:
